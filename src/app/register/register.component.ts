@@ -6,5 +6,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
+  email: string;
+  password: string;
+  passwordConfirm: string
+
+  constructor() {
+    this.password = ""
+    this.passwordConfirm = ""
+    this.email = ""
+  }
+  onSubmit(){
+    console.log(this.email)
+    console.log(this.password)
+  }
 
 }

@@ -1,1 +1,26 @@
-<p>main works!</p>
+<mat-toolbar color="primary">
+  <div>
+    <a routerLink="/home">
+      <button mat-icon-button>
+        <mat-icon>home</mat-icon>
+      </button>
+    </a>
+    <button mat-icon-button [matMenuTriggerFor]="course">
+      <mat-icon>class</mat-icon>
+    </button>
+    <button mat-icon-button [matMenuTriggerFor]="course">
+     <mat-icon>library_books</mat-icon>
+    </button>
+  </div>
+  <div>
+    <a routerLink="/register"><mat-icon>how_to_reg</mat-icon></a>
+    <a routerLink="/login"><mat-icon>login</mat-icon></a>
+  </div>
+
+  <mat-menu #course>
+    <p>Courses</p>
+  </mat-menu>
+</mat-toolbar>
+<mat-toolbar>
+
+</mat-toolbar>

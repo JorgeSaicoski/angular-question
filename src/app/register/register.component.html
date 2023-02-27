@@ -1,1 +1,52 @@
-<p>register works!</p>
+<app-main></app-main>
+<mat-toolbar color="secondary">
+  <mat-card>
+    <mat-card-content>
+      <mat-card-header>
+        <mat-card-title>Registrar</mat-card-title>
+        <mat-card-subtitle>Ingresse seus datos</mat-card-subtitle>
+      </mat-card-header>
+      <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+        <mat-card-actions>
+          <mat-icon>person</mat-icon>
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput
+                   type="email"
+                   name="email"
+                   id="email"
+                   [(ngModel)]="email"
+            >
+          </mat-form-field>
+        </mat-card-actions>
+        <mat-card-actions>
+          <mat-icon>key</mat-icon>
+          <mat-form-field appearance="fill">
+            <mat-label>Senha</mat-label>
+            <input matInput
+                   type="password"
+                   name="password"
+                   id="password"
+                   placeholder="Password"
+                   [(ngModel)]="password"
+            >
+          </mat-form-field>
+        </mat-card-actions>
+        <mat-card-actions>
+          <mat-icon>key</mat-icon>
+          <mat-form-field appearance="fill">
+            <mat-label>Confirme a Senha</mat-label>
+            <input matInput
+                   type="password"
+                   name="passwordConfirm"
+                   id="passwordConfirm"
+                   placeholder="Password"
+                   [(ngModel)]="passwordConfirm"
+            >
+          </mat-form-field>
+        </mat-card-actions>
+        <button type="submit">Entrar</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</mat-toolbar>
