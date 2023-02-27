@@ -21,6 +21,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import {FormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import {MatInputModule} from "@angular/material/input";
     MatBadgeModule,
     MatSnackBarModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {UsersService} from "../../services/users/users.service";
+import {User} from "../../models/user/user";
 
 @Component({
   selector: 'app-register',
@@ -10,6 +11,7 @@ export class RegisterComponent {
   email: string;
   password: string;
   passwordConfirm: string
+  user: User = null as any
 
   constructor(
     public userService: UsersService
@@ -21,8 +23,8 @@ export class RegisterComponent {
 
   onSubmit() {
     const user = {email: this.email, password: this.password};
-    this.userService.register(user).subscribe((data: any) => {
-      console.log(data)
+    this.userService.register(user).subscribe((data: User) => {
+      this.user = data
     })
   }
 }

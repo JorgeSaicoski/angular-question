@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {UsersService} from "../../services/users/users.service";
+import {User} from "../../models/user/user";
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,7 @@ export class LoginComponent {
       email: this.email,
       password: this.password
     }
-    this.userService.login(user).subscribe((data: any)=>{
+    this.userService.login(user).subscribe((data: User)=>{
       console.log(data)
     })
   }
