@@ -1,0 +1,36 @@
+<app-main></app-main>
+<mat-toolbar color="secondary">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Register</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username" required>
+          <mat-error *ngIf="registerForm.controls['username'].invalid">Please enter a valid username</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Email address</mat-label>
+          <input matInput formControlName="email" required>
+          <mat-error *ngIf="registerForm.controls['email'].invalid">Please enter a valid email address</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" required>
+          <mat-error *ngIf="registerForm.controls['password'].invalid">Please enter a valid password</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Confirm Password</mat-label>
+          <input matInput type="password" formControlName="confirmPassword" required>
+          <mat-error *ngIf="registerForm.controls['confirmPassword'].invalid">Passwords must match</mat-error>
+        </mat-form-field>
+        <div class="register-buttons">
+          <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid">Register</button>
+          <button mat-raised-button type="button" routerLink="/login">Cancel</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</mat-toolbar>
