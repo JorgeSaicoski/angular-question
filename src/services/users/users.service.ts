@@ -1,36 +1,39 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from "rxjs";
 import {User} from "../../models/user/user";
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-  apiUrl: string = "http://localhost:5050/auth"
-  private username: string;
+
+  private apiUrl: string = "http://localhost:5050/auth"
+  private email: string;
   constructor(private http: HttpClient, private router: Router) {
-    this.username = '';
+    this.email = '';
   }
 
   public login(user: User): Observable<User>{
     return this.http.post(`${this.apiUrl}/login`, user).pipe(
       map((response:any) => {
-        console.log(response)
+        this.email = response.email
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('token', JSON.stringify(response.token));
         return response;
       })
     );
   }
+
+
   public register(user: User): Observable<User>{
     return this.http.post(`${this.apiUrl}/register`, user).pipe(
       map((response:any) => {
-        console.log(response)
+        this.email = response.email
+        this.router.navigate(['/courses'])
         return response;
       })
     );
-  }
-  getUsername(): string {
-    return this.username;
   }
 }

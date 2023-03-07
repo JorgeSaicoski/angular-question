@@ -3,6 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import {HomeComponent} from "./guest/home/home.component";
 import {LoginComponent} from "./guest/login/login.component";
 import {RegisterComponent} from "./guest/register/register.component";
+import {LoginGuard} from "./guards/login.guard";
+import {CoursesComponent} from "./member/courses/courses.component";
+
 
 const routes: Routes = [
   {
@@ -24,6 +27,10 @@ const routes: Routes = [
     path: "register",
     component: RegisterComponent,
     pathMatch: "full"
+  },
+  { path: 'courses',
+    component: CoursesComponent,
+    canActivate: [LoginGuard]
   }
 ];
 
