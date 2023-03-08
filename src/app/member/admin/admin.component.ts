@@ -14,7 +14,7 @@ export class AdminComponent {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    //this.isAdmin = this.authService.isAdmin();
+    this.isAdmin = this.authService.isAdmin();
   }
 
   createQuestion() {
