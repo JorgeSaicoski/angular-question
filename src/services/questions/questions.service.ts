@@ -26,9 +26,7 @@ export class QuestionsService {
         }
         return null as any;
       }),
-      catchError((e: any) => {
-        console.log(e)
-      })
+
     );
   }
 

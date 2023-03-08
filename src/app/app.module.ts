@@ -24,6 +24,7 @@ import {MatInputModule} from "@angular/material/input";
 import {HttpClientModule} from "@angular/common/http";
 import { CoursesComponent } from './member/courses/courses.component';
 import { AdminComponent } from './member/admin/admin.component';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 
 
 @NgModule({
@@ -54,9 +55,18 @@ import { AdminComponent } from './member/admin/admin.component';
     FormsModule,
     MatInputModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => localStorage.getItem('access_token'),
+        allowedDomains: ['localhost:5050'],
+        disallowedRoutes: [],
+      },
+    }),
   ],
-  providers: [],
+  providers: [
+    JwtHelperService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
