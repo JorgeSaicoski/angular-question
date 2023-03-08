@@ -23,6 +23,8 @@ import {FormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {HttpClientModule} from "@angular/common/http";
 import { CoursesComponent } from './member/courses/courses.component';
+import { AdminComponent } from './member/admin/admin.component';
+
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { CoursesComponent } from './member/courses/courses.component';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    CoursesComponent
+    CoursesComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
