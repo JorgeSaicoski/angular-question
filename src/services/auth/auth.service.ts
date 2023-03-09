@@ -3,8 +3,9 @@ import { CookieService } from 'ngx-cookie-service';
 import {User} from "../../models/user/user";
 import { JwtHelperService } from '@auth0/angular-jwt';
 import jwt_decode from 'jwt-decode';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {BehaviorSubject, Observable, tap} from 'rxjs';
 import {UsersService} from "../users/users.service";
+import {HttpClient} from "@angular/common/http";
 
 
 
@@ -18,6 +19,7 @@ interface DecodedToken {
 })
 
 export class AuthService {
+  private apiUrl: string = "http://localhost:5050/auth"
 
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
@@ -25,7 +27,8 @@ export class AuthService {
   constructor(
     private cookieService: CookieService,
     private jwtHelper: JwtHelperService,
-    private userService: UsersService
+    private userService: UsersService,
+    private http: HttpClient,
   ) {
     this.currentUserSubject = new BehaviorSubject<any>(null);
     this.currentUser = this.currentUserSubject.asObservable();
@@ -44,8 +47,8 @@ export class AuthService {
     }
   }
   public setCurrentUser(user: any) {
-    console.log(this.currentUserSubject)
     this.currentUserSubject.next(user);
+    return this.currentUser
   }
 
   public isAdmin(): boolean {
@@ -55,6 +58,19 @@ export class AuthService {
     }
     const decodedToken = jwt_decode(token) as DecodedToken;
     return decodedToken.admin;
+  }
+  isAuthenticated(): boolean {
+    const token = localStorage.getItem('token');
+    return !this.jwtHelper.isTokenExpired(token);
+  }
+
+  login(email: string, password: string) {
+    return this.http.post<any>(`${this.apiUrl}/login`, { email, password }).pipe(
+      tap(response => {
+        const token = response.token;
+        localStorage.setItem('token', token);
+      })
+    );
   }
 
 }

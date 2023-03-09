@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {UsersService} from "../../../services/users/users.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CookieService} from "ngx-cookie-service";
 import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {AuthService} from "../../../services/auth/auth.service";
 
 
 @Component({
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit{
 
   constructor(
     private formBuilder: FormBuilder,
-    public userService:UsersService,
+    public authService:AuthService,
     private cookieService: CookieService,
     private router: Router
   ) {}
@@ -29,15 +30,16 @@ export class LoginComponent implements OnInit{
   }
 
   onSubmit():void{
-    this.userService.login(this.loginForm.value).subscribe(
-      (response: any)=>{
-        localStorage.setItem('token', response.token);
-        this.router.navigate(['/courses'])
+    console.log(this.loginForm.value)
+
+    this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(
+      () => {
+        if (this.authService.isAuthenticated()) {
+          this.router.navigate(['/courses']);
+        }
       },
-      (error) => {
-        this.errorMessage = error.error.message;
-      }
-    )
+    );
+
   }
 
 }

@@ -14,14 +14,18 @@ export class CoursesComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     const token = localStorage.getItem('token');
     console.log(token)
-    if (token){
-      //this.user = JSON.parse(atob(token.split('.')[1])).user;
-      this.authService.setCurrentUser(this.user);
+    if (token) {
+      await this.authService.setCurrentUser(this.user);
       console.log("user")
       console.log(this.user)
     }
   }
+
+  public async getUser() {
+    this.user = await this.authService.getCurrentUser()
+  }
+
 }

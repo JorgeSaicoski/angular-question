@@ -15,17 +15,6 @@ export class UsersService {
     this.email = '';
   }
 
-  public login(user: User): Observable<User>{
-    return this.http.post(`${this.apiUrl}/login`, user).pipe(
-      map((response:any) => {
-        this.email = response.email
-        localStorage.setItem('user', JSON.stringify(user));
-        localStorage.setItem('token', JSON.stringify(response.token));
-        return response;
-      })
-    );
-  }
-
 
   public register(user: User): Observable<User>{
     return this.http.post(`${this.apiUrl}/register`, user).pipe(
