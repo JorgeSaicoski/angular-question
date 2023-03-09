@@ -38,14 +38,14 @@ export class AuthService {
   public isLoggedIn(): boolean {
     return true
   }
-  public getCurrentUser(): Observable<User> {
+  getCurrentUser(): any {
     const token = localStorage.getItem('token');
-    if (token && !this.jwtHelper.isTokenExpired(token)) {
-      const decodedToken = this.jwtHelper.decodeToken(token) as DecodedToken;
-      return this.userService.getUserByUsername(decodedToken.username);
-    } else {
-      return null as any;
+    if (!token) {
+      return null;
     }
+    const jwtHelper = new JwtHelperService();
+    console.log(jwtHelper.decodeToken(token))
+    return jwtHelper.decodeToken(token).user;
   }
   public setCurrentUser(user: any) {
     this.currentUserSubject.next(user);
