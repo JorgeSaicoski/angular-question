@@ -30,15 +30,11 @@ export class LoginComponent implements OnInit{
   }
 
   onSubmit():void{
-    console.log(this.loginForm.value)
+    console.log(this.loginForm.value);
 
-    this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(
-      () => {
-        if (this.authService.isAuthenticated()) {
-          this.router.navigate(['/courses']);
-        }
-      },
-    );
+    this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(() => {
+      this.router.navigate(['/courses']);
+    });
 
   }
 

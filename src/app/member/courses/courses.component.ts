@@ -9,23 +9,16 @@ import { AuthService } from '../../../services/auth/auth.service';
 })
 export class CoursesComponent implements OnInit {
 
-  public user: any
-  constructor(private authService: AuthService) {
+  public currentUser: any;
+  constructor(
+    private authService: AuthService
+  ) {
 
   }
 
-  async ngOnInit() {
-    const token = localStorage.getItem('token');
-    console.log(token)
-    if (token) {
-      await this.authService.setCurrentUser(this.user);
-      console.log("user")
-      console.log(this.user)
-    }
+  ngOnInit(): void {
+    this.authService.currentUser.subscribe(user => {
+      this.currentUser = user;
+    });
   }
-
-  public async getUser() {
-    this.user = await this.authService.getCurrentUser()
-  }
-
 }

@@ -6,6 +6,7 @@ import jwt_decode from 'jwt-decode';
 import {BehaviorSubject, Observable, tap} from 'rxjs';
 import {UsersService} from "../users/users.service";
 import {HttpClient} from "@angular/common/http";
+import {map} from "rxjs/operators";
 
 
 
@@ -68,7 +69,9 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrl}/login`, { email, password }).pipe(
       tap(response => {
         const token = response.token;
+        const user = response.user;
         localStorage.setItem('token', token);
+        this.setCurrentUser(user);
       })
     );
   }
