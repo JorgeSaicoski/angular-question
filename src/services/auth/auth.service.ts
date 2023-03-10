@@ -7,6 +7,7 @@ import {BehaviorSubject, Observable, tap} from 'rxjs';
 import {UsersService} from "../users/users.service";
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
+import {Router} from "@angular/router";
 
 
 
@@ -30,6 +31,7 @@ export class AuthService {
     private jwtHelper: JwtHelperService,
     private userService: UsersService,
     private http: HttpClient,
+    private router: Router
   ) {
     this.currentUserSubject = new BehaviorSubject<any>(null);
     this.currentUser = this.currentUserSubject.asObservable();
@@ -44,12 +46,11 @@ export class AuthService {
       return null;
     }
     const jwtHelper = new JwtHelperService();
-    console.log(jwtHelper.decodeToken(token))
-    return jwtHelper.decodeToken(token).user;
-  }
-  public setCurrentUser(user: any) {
-    this.currentUserSubject.next(user);
+    const userId = jwtHelper.decodeToken(token).data._id;
+    const userData = this.userService.getUserByID(userId)
+    this.currentUserSubject.next(userData);
     return this.currentUser
+
   }
 
   public isAdmin(): boolean {
@@ -69,9 +70,16 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrl}/login`, { email, password }).pipe(
       tap(response => {
         const token = response.token;
-        const user = response.user;
         localStorage.setItem('token', token);
-        this.setCurrentUser(user);
+        this.getCurrentUser()
+      })
+    );
+  }
+  public register(user: User): Observable<User>{
+    return this.http.post(`${this.apiUrl}/register`, user).pipe(
+      map((response:any) => {
+        this.router.navigate(['/courses'])
+        return response;
       })
     );
   }

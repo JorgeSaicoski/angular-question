@@ -3,6 +3,7 @@ import {UsersService} from "../../../services/users/users.service";
 import {User} from "../../../models/user/user";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { CookieService } from 'ngx-cookie-service';
+import {AuthService} from "../../../services/auth/auth.service";
 
 @Component({
   selector: 'app-register',
@@ -14,6 +15,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private authService: AuthService,
     private userService: UsersService,
     private cookieService: CookieService
   ) { }
@@ -39,10 +41,10 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     const user = this.registerForm.value as User;
-    this.userService.register(this.registerForm.value).subscribe(
+    this.authService.register(this.registerForm.value).subscribe(
       (response: any)=>{
         this.cookieService.set('token', response.token);
-        this.cookieService.set('user', JSON.stringify(response.user));
+        this.authService.getCurrentUser()
       },
       (error) => console.log(error)
     );
