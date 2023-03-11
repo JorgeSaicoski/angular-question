@@ -3,7 +3,7 @@
     <mat-card-title>User Page</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <p *ngIf="currentUser">Welcome {{ currentUser.username }}</p>
-    <p *ngIf="!currentUser">Please login to view courses.</p>
+    <p *ngIf="currentUserData">Welcome {{ currentUserData.username }}</p>
+    <p *ngIf="!currentUserData">Please login to view courses.</p>
   </mat-card-content>
 </mat-card>

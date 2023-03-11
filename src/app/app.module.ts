@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MainComponent } from './guest/main/main.component';
+import { MainComponent } from './main/main.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatGridListModule} from "@angular/material/grid-list";
@@ -25,6 +25,8 @@ import {HttpClientModule} from "@angular/common/http";
 import { CoursesComponent } from './member/courses/courses.component';
 import { AdminComponent } from './member/admin/admin.component';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
 
 
 @NgModule({
@@ -63,6 +65,8 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
         disallowedRoutes: [],
       },
     }),
+    MatPaginatorModule,
+    MatSortModule,
   ],
   providers: [
     JwtHelperService,

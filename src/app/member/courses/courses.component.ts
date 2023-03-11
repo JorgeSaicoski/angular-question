@@ -15,6 +15,7 @@ export class CoursesComponent implements OnInit {
 
 
   public currentUser: any;
+  public currentUserData: any;
   constructor(
     private authService: AuthService
   ) {
@@ -22,8 +23,16 @@ export class CoursesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.getCurrentUser().subscribe((user: User) => {
-      this.currentUser = user;
-    });
+    const currentUser = this.authService.getCurrentUser();
+    if (currentUser) {
+      currentUser.subscribe(
+        (userData: User) => {
+          this.currentUserData = userData
+        },
+        (error: any) => {
+          console.error(error);
+        }
+      );
+    }
   }
 }

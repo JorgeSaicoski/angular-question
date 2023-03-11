@@ -37,21 +37,18 @@ export class AuthService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public isLoggedIn(): boolean {
-    return true
-  }
-  getCurrentUser(): any {
+
+  getCurrentUser(): Observable<User> | null {
     const token = localStorage.getItem('token');
     if (!token) {
       return null;
     }
     const jwtHelper = new JwtHelperService();
     const userId = jwtHelper.decodeToken(token).data._id;
-    const userData = this.userService.getUserByID(userId)
-    this.currentUserSubject.next(userData);
-    return this.currentUser
 
+    return this.userService.getUserByID(userId);
   }
+
 
   public isAdmin(): boolean {
     const token = this.cookieService.get('token');
