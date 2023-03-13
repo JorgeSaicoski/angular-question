@@ -1,24 +1,21 @@
 # base image
-FROM node:14.17.5 AS build
+FROM node:14-alpine
 
-# set working directory
+# create app directory
 WORKDIR /app
 
-# install dependencies
+# install Angular CLI globally
+RUN npm install -g @angular/cli
+
+# install app dependencies
 COPY package*.json ./
 RUN npm install
 
-# copy project files
+# copy app files
 COPY . .
 
-# build project
-RUN npm run build --prod
+# expose port for the app
+EXPOSE 4200
 
-# final image
-FROM nginx:1.21.3-alpine
-
-# copy build artifacts from previous image
-COPY --from=build /app/dist/angular-courses /usr/share/nginx/html
-
-# copy nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# start the app
+CMD ng serve

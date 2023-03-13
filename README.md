@@ -2,26 +2,37 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.0.
 
-## Development server
+## To run in development
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Just use the Dockerfile to run
 
-## Code scaffolding
+## To run in production
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+You need to change the docker file to:
 
-## Build
+```yml
+# base image
+FROM node:14.17.5 AS build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+  # set working directory
+WORKDIR /app
 
-## Running unit tests
+  # install dependencies
+COPY package*.json ./
+RUN npm install
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+  # copy project files
+COPY . .
 
-## Running end-to-end tests
+  # build project
+RUN npm run build --prod
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+  # final image
+FROM nginx:1.21.3-alpine
 
-## Further help
+  # copy build artifacts from previous image
+COPY --from=build /app/dist/angular-courses /usr/share/nginx/html
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+  # copy nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+```
