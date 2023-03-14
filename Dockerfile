@@ -18,4 +18,4 @@ COPY . .
 EXPOSE 4200
 
 # start the app
-CMD ng serve
+CMD [ "ng", "serve" ]
