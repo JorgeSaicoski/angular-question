@@ -39,7 +39,8 @@ export class UsersService {
       }),
     );
   }
-  public getFilterLogs(filter: Filter, query: any): Observable<Pager> {
+  public getFilterUsers(filter: Filter, query: any): Observable<Pager> {
+    console.log("here")
     const url = `${this.apiUrl}/filter?page=${filter.page}&limit=${filter.limit}&sort=${filter.sort}&order=${filter.order}`;
     return this.http.post<Pager>(url, JSON.stringify(query)).pipe(
       map((response: Pager) => {

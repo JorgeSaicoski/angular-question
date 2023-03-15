@@ -42,6 +42,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
     private router: Router) { }
 
   ngOnInit() {
+    this.search()
   }
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
@@ -52,7 +53,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
     this.search()
   }
   private search() {
-    this.userService.getFilterLogs(this.filter, this.query).subscribe((response: Pager) => {
+    this.userService.getFilterUsers(this.filter, this.query).subscribe((response: Pager) => {
       if (response&&response.docs&&response.docs.length>0) {
         this.onPageLoad(response)
         this.dataSource.data = response.docs as User[];
