@@ -7,6 +7,8 @@ WORKDIR /app
 # install Angular CLI globally
 RUN npm install -g @angular/cli
 
+RUN npm install @auth0/angular-jwt jwt-decode
+
 # install app dependencies
 COPY package*.json ./
 RUN npm install

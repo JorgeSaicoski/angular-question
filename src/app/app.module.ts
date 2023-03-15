@@ -27,6 +27,7 @@ import { AdminComponent } from './member/admin/admin.component';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
+import {RouterModule} from "@angular/router";
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import {MatSortModule} from "@angular/material/sort";
     }),
     MatPaginatorModule,
     MatSortModule,
+    RouterModule
   ],
   providers: [
     JwtHelperService,
