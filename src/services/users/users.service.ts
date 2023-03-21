@@ -11,11 +11,11 @@ import {Filter} from "../../models/query/filter/filter";
 export class UsersService {
 
   private apiUrl: string = "http://localhost:5050/users"
-  private email: string;
+
   private token = localStorage.getItem('token');
   private headers = { Authorization: `Bearer ${(this.token)}` };
   constructor(private http: HttpClient) {
-    this.email = '';
+
   }
 
 

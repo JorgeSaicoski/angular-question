@@ -41,7 +41,8 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     const user = this.registerForm.value as User;
-    this.authService.register(this.registerForm.value).subscribe(
+    user.name=user.username
+    this.authService.register(user).subscribe(
       (response: any)=>{
         this.cookieService.set('token', response.token);
         this.authService.getCurrentUser()

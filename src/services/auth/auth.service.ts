@@ -50,14 +50,7 @@ export class AuthService {
   }
 
 
-  public isAdmin(): boolean {
-    const token = this.cookieService.get('token');
-    if (!token) {
-      return false;
-    }
-    const decodedToken = jwt_decode(token) as DecodedToken;
-    return decodedToken.admin;
-  }
+
   isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
     return !this.jwtHelper.isTokenExpired(token);
@@ -79,6 +72,9 @@ export class AuthService {
         return response;
       })
     );
+  }
+  public logout() {
+    localStorage.removeItem('token');
   }
 
 }

@@ -12,14 +12,24 @@
       <mat-icon>library_books</mat-icon>
     </button>
   </div>
-  <div>
+  <div *ngIf="!authService.isAuthenticated">
     <a routerLink="/register"><mat-icon>how_to_reg</mat-icon></a>
     <a routerLink="/login"><mat-icon>login</mat-icon></a>
   </div>
+  <div *ngIf="authService.isAuthenticated">
+    <button mat-icon-button [matMenuTriggerFor]="logoutMenu">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+
 
   <mat-menu #course>
     <a routerLink="/courses"><p>Courses</p></a>
   </mat-menu>
+  <mat-menu #logoutMenu>
+    <button (click)="logout()">Confirm</button>
+  </mat-menu>
+
 </mat-toolbar>
 <mat-toolbar>
 
